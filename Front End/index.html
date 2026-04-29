@@ -1,0 +1,209 @@
+<!-- Internet required for CDN libraries - Google Fonts, GSAP, TSParticles, Typed.js, Splitting.js, Lottie, Prism.js -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ALI - Autonomous Integration Layer</title>
+<meta name="description" content="ALI automatically connects any two software tools using AI. No code, no setup, no waiting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-bundle@2/tsparticles.bundle.min.js"></script>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+<script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<div id="page-landing" class="page">
+  <nav class="navbar" id="main-nav">
+    <div class="nav-logo-wrap"><img src="logo.png" alt="ALI"><span class="nav-logo">ALI</span><span class="nav-fullname">Autonomous<br>Integration Layer</span></div>
+    <div class="nav-links">
+      <a href="#" onclick="scrollToSection('features')">Features</a>
+      <a href="#" onclick="scrollToSection('how')">How It Works</a>
+      <a href="#" onclick="scrollToSection('who')">For Teams</a>
+      <a href="#" onclick="navigateTo('page-login')">Log In</a>
+      <a href="#" onclick="navigateTo('page-signup')" class="btn-nav">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div id="tsparticles"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="etheral-shadow" id="etheral-hero"><div class="etheral-inner" id="etheral-hero-inner"><svg style="position:absolute"><defs><filter id="etherFilter1"><feTurbulence result="undulation" numOctaves="2" baseFrequency="0.0005,0.002" seed="0" type="turbulence"/><feColorMatrix id="etherHue1" in="undulation" type="hueRotate" values="180"/><feColorMatrix in="dist" result="circulation" type="matrix" values="4 0 0 0 1 4 0 0 0 1 4 0 0 0 1 1 0 0 0 0"/><feDisplacementMap in="SourceGraphic" in2="circulation" scale="100" result="dist"/><feDisplacementMap in="dist" in2="undulation" scale="100" result="output"/></filter></defs></svg><div class="etheral-color"></div></div><div class="etheral-noise"></div></div>
+    <div class="hero-content">
+      <div class="hero-logo-row">
+        <img src="logo.png" alt="ALI" class="hero-logo-img">
+        <div class="hero-logo-text"><span class="hero-logo-name">ALI</span><span class="hero-logo-full">Autonomous Integration Layer</span></div>
+      </div>
+      <h1><span class="gradient-text">Connect any two tools.</span><br>No code. No waiting.</h1>
+      <div class="typed-wrap"><span id="typed-text"></span></div>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="navigateTo('page-signup')">Start Building Bridges &rarr;</button>
+        <button class="btn-ghost" onclick="scrollToSection('how')">See How It Works</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">10x</div><div class="lbl">Faster</div></div>
+        <div class="hero-stat"><div class="num">0</div><div class="lbl">Code Needed</div></div>
+        <div class="hero-stat"><div class="num">&lt;2m</div><div class="lbl">To Deploy</div></div>
+        <div class="hero-stat"><div class="num">99.9%</div><div class="lbl">Uptime</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span>API BRIDGE<span class="dot"></span></span>
+      <span>AUTONOMOUS<span class="dot"></span></span>
+      <span>ZERO CONFIG<span class="dot"></span></span>
+      <span>AI POWERED<span class="dot"></span></span>
+      <span>SELF HEALING<span class="dot"></span></span>
+      <span>SANDBOXED<span class="dot"></span></span>
+      <span>REAL TIME<span class="dot"></span></span>
+      <span>INSTANT DEPLOY<span class="dot"></span></span>
+      <span>API BRIDGE<span class="dot"></span></span>
+      <span>AUTONOMOUS<span class="dot"></span></span>
+      <span>ZERO CONFIG<span class="dot"></span></span>
+      <span>AI POWERED<span class="dot"></span></span>
+      <span>SELF HEALING<span class="dot"></span></span>
+      <span>SANDBOXED<span class="dot"></span></span>
+      <span>REAL TIME<span class="dot"></span></span>
+      <span>INSTANT DEPLOY<span class="dot"></span></span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">Three steps to a<br>live integration.</h2>
+    <p class="section-sub">No engineers. No config files. Just drop your docs, describe the flow, and ALI handles everything else.</p>
+    <div class="steps-row">
+      <div class="step-card"><div class="step-num">01</div><div class="step-label">Step One</div><h3>Upload API Docs</h3><p>Drop your API documentation files for both tools. ALI accepts .txt, .md, and .pdf &mdash; just drag and drop.</p></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-label">Step Two</div><h3>AI Analyzes &amp; Maps</h3><p>ALI reads both docs, extracts every endpoint and field, then intelligently maps data between your two tools.</p></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-label">Step Three</div><h3>Bridge Goes Live</h3><p>A working Python bridge is generated, tested in a sandbox, and deployed. Your tools are now connected.</p></div>
+    </div>
+  </section>
+
+  <!-- FEATURES - BENTO GRID -->
+  <section class="section" id="features">
+    <div class="section-center">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">Everything you need<br>to integrate.</h2>
+      <p class="section-sub">ALI handles the entire integration lifecycle &mdash; from reading documentation to deploying live connections.</p>
+    </div>
+    <div class="bento-grid">
+      <div class="bento-card span-2"><div class="b-tag">Core</div><div class="b-icon">&#9889;</div><h3>Instant API Connections</h3><p>Connect any two software tools in minutes, not weeks. ALI auto-detects endpoints, authentication methods, rate limits, and data schemas from your documentation alone.</p></div>
+      <div class="bento-card"><div class="b-tag">Intelligence</div><div class="b-icon">&#128196;</div><h3>Auto Doc Reading</h3><p>Upload your API docs and ALI parses endpoints, schemas, and auth flows automatically. No manual mapping needed.</p></div>
+      <div class="bento-card"><div class="b-tag">Security</div><div class="b-icon">&#128737;&#65039;</div><h3>Sandboxed Execution</h3><p>All generated code runs in isolated sandbox environments. Your system and data stay completely protected.</p></div>
+      <div class="bento-card span-2"><div class="b-tag">Reliability</div><div class="b-icon">&#128257;</div><h3>Self-Healing Bridges</h3><p>If an API changes or something breaks, ALI detects the issue, regenerates the bridge code, and redeploys automatically. Zero downtime, zero manual intervention required.</p></div>
+      <div class="bento-card"><div class="b-tag">Simplicity</div><div class="b-icon">&#128268;</div><h3>Zero Config</h3><p>No YAML files. No complex configurations. Describe what you want in plain English and ALI builds it.</p></div>
+      <div class="bento-card"><div class="b-tag">Monitoring</div><div class="b-icon">&#128202;</div><h3>Real-time Dashboard</h3><p>Track all active bridges with live status updates, error alerts, and performance metrics in one view.</p></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-row">
+      <div class="stat-block"><div class="big">500+</div><div class="label">APIs Supported</div></div>
+      <div class="stat-block"><div class="big">10K+</div><div class="label">Bridges Built</div></div>
+      <div class="stat-block"><div class="big">99.9%</div><div class="label">Success Rate</div></div>
+      <div class="stat-block"><div class="big">50ms</div><div class="label">Avg Response</div></div>
+    </div>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section" id="who">
+    <div class="section-label">Audience</div>
+    <h2 class="section-title">Built for teams<br>who move fast.</h2>
+    <p class="section-sub">Whether you're a startup founder or an enterprise ops lead, ALI eliminates integration headaches.</p>
+    <div class="who-grid">
+      <div class="who-card"><div class="emoji">&#128640;</div><h3>Startups</h3><p>Connect your CRM to your chat tool without hiring a backend engineer. Ship integrations on day one.</p></div>
+      <div class="who-card"><div class="emoji">&#9889;</div><h3>Dev Teams</h3><p>Stop writing integration code. Focus on your actual product while ALI handles the plumbing.</p></div>
+      <div class="who-card"><div class="emoji">&#127970;</div><h3>Ops Teams</h3><p>Link enterprise tools that were never meant to talk to each other. Automate everything.</p></div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section class="demo-section" id="demo">
+    <p class="demo-label">Drop two docs. Get a live bridge.</p>
+    <dotlottie-player src="https://lottie.host/454e2f32-d2be-4c72-b2d0-9c81e0e04c92/MaGMlRzxKD.lottie" autoplay loop style="height:300px;width:300px;margin:0 auto;"></dotlottie-player>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-card">
+      <h2>Ready to connect<br>your tools?</h2>
+      <p class="cta-sub">Start building bridges in under 2 minutes. No credit card required.</p>
+      <button class="btn-primary" onclick="navigateTo('page-signup')">Start for Free &rarr;</button>
+      <div class="team">Team ALI &mdash; Antarjot &middot; Japneet &middot; Gurveer &middot; Savneet</div>
+    </div>
+  </section>
+
+  <footer class="site-footer">&copy; 2026 ALI &mdash; Autonomous Integration Layer</footer>
+</div>
+
+<!-- ==================== SIGNUP PAGE ==================== -->
+<div id="page-signup" class="page"><div class="auth-page">
+  <div class="auth-form-side"><div class="auth-card"><h2>Create your account</h2><div class="sub">Join Team ALI</div>
+    <div class="form-group"><input type="text" id="su-name" required><label for="su-name">Full Name</label></div>
+    <div class="form-group"><input type="email" id="su-email" required><label for="su-email">Email Address</label></div>
+    <div class="form-group"><input type="password" id="su-pass" required><label for="su-pass">Password</label></div>
+    <button class="btn-submit" onclick="handleAuthSubmit(this,'page-tool')"><span class="btn-text">Sign Up</span><span class="spinner"></span></button>
+    <div class="auth-switch">Already have an account? <a href="#" onclick="navigateTo('page-login')">Log in</a></div></div></div>
+  <div class="auth-visual"><div class="etheral-shadow purple" id="etheral-signup"><div class="etheral-inner" id="etheral-signup-inner"><svg style="position:absolute"><defs><filter id="etherFilter2"><feTurbulence result="undulation" numOctaves="2" baseFrequency="0.0005,0.002" seed="0" type="turbulence"/><feColorMatrix id="etherHue2" in="undulation" type="hueRotate" values="180"/><feColorMatrix in="dist" result="circulation" type="matrix" values="4 0 0 0 1 4 0 0 0 1 4 0 0 0 1 1 0 0 0 0"/><feDisplacementMap in="SourceGraphic" in2="circulation" scale="100" result="dist"/><feDisplacementMap in="dist" in2="undulation" scale="100" result="output"/></filter></defs></svg><div class="etheral-color"></div></div><div class="etheral-noise"></div></div>
+    <div style="position:relative;z-index:1;text-align:center;"><div class="nav-logo">ALI</div><div class="sub">Autonomous Integration Layer</div>
+    <div class="steps"><span>2 docs in</span><span>&mdash;</span><span>AI thinks</span><span>&mdash;</span><span>1 bridge out</span></div></div></div>
+</div></div>
+
+<!-- ==================== LOGIN PAGE ==================== -->
+<div id="page-login" class="page"><div class="auth-page">
+  <div class="auth-form-side"><div class="auth-card"><h2>Welcome back</h2><div class="sub">Log in to ALI</div>
+    <div class="form-group"><input type="email" id="li-email" required><label for="li-email">Email Address</label></div>
+    <div class="form-group"><input type="password" id="li-pass" required><label for="li-pass">Password</label></div>
+    <button class="btn-submit" onclick="handleAuthSubmit(this,'page-tool')"><span class="btn-text">Log In</span><span class="spinner"></span></button>
+    <div class="auth-switch">Don't have an account? <a href="#" onclick="navigateTo('page-signup')">Sign up</a></div></div></div>
+  <div class="auth-visual"><div class="etheral-shadow teal" id="etheral-login"><div class="etheral-inner" id="etheral-login-inner"><svg style="position:absolute"><defs><filter id="etherFilter3"><feTurbulence result="undulation" numOctaves="2" baseFrequency="0.0005,0.002" seed="0" type="turbulence"/><feColorMatrix id="etherHue3" in="undulation" type="hueRotate" values="180"/><feColorMatrix in="dist" result="circulation" type="matrix" values="4 0 0 0 1 4 0 0 0 1 4 0 0 0 1 1 0 0 0 0"/><feDisplacementMap in="SourceGraphic" in2="circulation" scale="100" result="dist"/><feDisplacementMap in="dist" in2="undulation" scale="100" result="output"/></filter></defs></svg><div class="etheral-color"></div></div><div class="etheral-noise"></div></div>
+    <div style="position:relative;z-index:1;text-align:center;"><div class="nav-logo">ALI</div><div class="sub">Autonomous Integration Layer</div>
+    <div class="steps"><span>2 docs in</span><span>&mdash;</span><span>AI thinks</span><span>&mdash;</span><span>1 bridge out</span></div></div></div>
+</div></div>
+
+<!-- ==================== TOOL PAGE ==================== -->
+<div id="page-tool" class="page">
+  <div class="tool-header"><div class="nav-logo">ALI</div><div class="user">Savneet Kaur</div></div>
+  <div class="zone" id="zone-upload"><div class="upload-grid">
+    <div class="upload-box" data-tool="a"><div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3-3 3 3"/></svg></div><div class="label">Tool A &mdash; API Docs</div><div class="sub">Drop .txt or .md file</div></div>
+    <div class="upload-box" data-tool="b"><div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3-3 3 3"/></svg></div><div class="label">Tool B &mdash; API Docs</div><div class="sub">Drop .txt or .md file</div></div>
+  </div><input class="prompt-input" type="text" placeholder="When a new lead is added in HubSpot, send an alert to Discord #sales-alerts">
+  <button class="btn-run" id="btn-run-ali" disabled onclick="runALI()">Run ALI</button></div>
+  <div class="zone" id="zone-pipeline" style="display:none;"><h2 style="font-size:1.5rem;margin-bottom:8px;">ALI is working...<span class="pulsing-dot"></span></h2><div class="timeline">
+    <div class="timeline-stage"><div class="stage-circle"><span class="stage-num">1</span><span class="mini-spin"></span></div><div class="stage-line"></div><div class="stage-title">Reading API Documentation</div><div class="stage-desc">ALI is analysing both API documentation files</div></div>
+    <div class="timeline-stage"><div class="stage-circle"><span class="stage-num">2</span><span class="mini-spin"></span></div><div class="stage-line"></div><div class="stage-title">Extracting Fields and Schema</div><div class="stage-desc">Identifying all available data fields in both tools</div></div>
+    <div class="timeline-stage"><div class="stage-circle"><span class="stage-num">3</span><span class="mini-spin"></span></div><div class="stage-line"></div><div class="stage-title">Mapping Fields Between Tools</div><div class="stage-desc">Figuring out which fields connect to which</div></div>
+    <div class="timeline-stage"><div class="stage-circle"><span class="stage-num">4</span><span class="mini-spin"></span></div><div class="stage-line"></div><div class="stage-title">Writing Bridge Code</div><div class="stage-desc">Generating the Python connection script</div></div>
+    <div class="timeline-stage"><div class="stage-circle"><span class="stage-num">5</span><span class="mini-spin"></span></div><div class="stage-title">Running and Delivering</div><div class="stage-desc">Executing the bridge and confirming delivery</div></div>
+  </div></div>
+  <div class="zone code-section" id="zone-code" style="display:none;"><div class="code-header"><span class="code-label">AI-Generated Bridge Code</span><button class="btn-copy" id="btn-copy" onclick="copyCode()">Copy</button></div>
+    <div class="code-window"><div class="line-numbers" id="line-numbers">1</div><div class="code-content"><pre><code id="code-output"></code></pre></div></div></div>
+  <div class="zone" id="zone-result" style="display:none;"><div class="result-card">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+    <h2>Bridge Executed Successfully</h2><div class="detail">Discord alert delivered &mdash; Lead: John Doe, Acme Corp, john@acme.com</div>
+    <div class="result-pill">Completed in 1 attempt</div><br><button class="btn-outline" onclick="resetTool()">Run Again</button></div></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
