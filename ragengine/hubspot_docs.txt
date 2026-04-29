@@ -1,0 +1,247 @@
+HubSpot CRM Contacts API Documentation
+
+Overview
+
+The HubSpot CRM API allows you to manage contacts, companies, deals, and
+other CRM objects programmatically. This document covers the Contacts API.
+A contact represents an individual person in the HubSpot CRM system.
+
+Authentication
+
+The HubSpot API uses Bearer token authentication via Private App access tokens.
+You must include the Authorization header in every API request.
+
+Header format:
+Authorization: Bearer YOUR_PRIVATE_APP_TOKEN
+
+To generate a Private App token:
+Log in to your HubSpot account and go to Settings.
+Navigate to Integrations and then Private Apps.
+Click Create a private app and grant the required scopes.
+Copy the access token shown on the app details page.
+Store this token securely as an environment variable.
+Never hardcode the token in your source code.
+
+Required OAuth Scopes for Contacts
+
+crm.objects.contacts.read  -  read contact records
+crm.objects.contacts.write  -  create and update contact records
+
+Base URL
+
+https://api.hubspot.com/crm/v3/objects/contacts
+
+All endpoints below are relative to this base URL.
+All requests and responses use JSON format.
+Include Content-Type: application/json on POST and PATCH requests.
+
+Get All Contacts
+
+GET https://api.hubspot.com/crm/v3/objects/contacts
+
+Query Parameters
+
+limit (integer, optional)  -  Maximum number of contacts to return. Default 10, max 100.
+after (string, optional)  -  Paging cursor token returned by the previous request.
+properties (string, optional)  -  Comma-separated list of properties to return.
+propertiesWithHistory (string, optional)  -  Properties to return with history.
+associations (string, optional)  -  Comma-separated list of association types.
+archived (boolean, optional)  -  Return archived contacts if true. Default false.
+
+Example Request
+
+GET https://api.hubspot.com/crm/v3/objects/contacts?limit=10&properties=firstname,lastname,email
+Authorization: Bearer YOUR_PRIVATE_APP_TOKEN
+
+Example Response
+
+{
+  "results": [
+    {
+      "id": "1",
+      "properties": {
+        "firstname": "John",
+        "lastname": "Smith",
+        "email": "john.smith@example.com",
+        "phone": "+1-555-123-4567",
+        "company": "Acme Corp",
+        "createdate": "2024-01-15T10:30:00.000Z",
+        "lastmodifieddate": "2024-01-15T10:30:00.000Z",
+        "hs_object_id": "1"
+      },
+      "createdAt": "2024-01-15T10:30:00.000Z",
+      "updatedAt": "2024-01-15T10:30:00.000Z",
+      "archived": false
+    }
+  ],
+  "paging": {
+    "next": {
+      "after": "NTI1Cg%3D%3D",
+      "link": "https://api.hubspot.com/crm/v3/objects/contacts?after=NTI1Cg%3D%3D"
+    }
+  }
+}
+
+Get a Single Contact
+
+GET https://api.hubspot.com/crm/v3/objects/contacts/{contactId}
+
+Replace {contactId} with the numeric ID of the contact.
+Include a properties query parameter to specify which fields to return.
+
+Example Request
+
+GET https://api.hubspot.com/crm/v3/objects/contacts/1?properties=firstname,lastname,email,phone,company
+Authorization: Bearer YOUR_PRIVATE_APP_TOKEN
+
+Contact Properties
+
+The following are the standard contact properties available in HubSpot CRM.
+
+firstname (string)  -  The contact's first name.
+lastname (string)  -  The contact's last name.
+email (string)  -  The contact's primary email address.
+phone (string)  -  The contact's primary phone number.
+mobilephone (string)  -  The contact's mobile phone number.
+company (string)  -  The name of the company the contact works for.
+website (string)  -  The URL of the contact's website or company website.
+address (string)  -  The contact's street address.
+city (string)  -  The city where the contact is located.
+state (string)  -  The state or region where the contact is located.
+zip (string)  -  The postal code of the contact's location.
+country (string)  -  The country where the contact is located.
+jobtitle (string)  -  The contact's job title.
+lifecyclestage (string)  -  The lifecycle stage of the contact in the sales funnel.
+hs_lead_status (string)  -  The lead status of the contact.
+createdate (datetime)  -  The date and time the contact was created.
+lastmodifieddate (datetime)  -  The date and time the contact was last modified.
+hs_object_id (string)  -  The internal HubSpot ID of the contact.
+
+Create a Contact
+
+POST https://api.hubspot.com/crm/v3/objects/contacts
+
+Creates a new contact in HubSpot CRM.
+
+Request Headers
+
+Content-Type: application/json
+Authorization: Bearer YOUR_PRIVATE_APP_TOKEN
+
+Request Body
+
+The request body must contain a properties object with the contact field values.
+
+{
+  "properties": {
+    "firstname": "Jane",
+    "lastname": "Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+1-555-987-6543",
+    "company": "Example Inc"
+  }
+}
+
+The email field must be unique across all contacts in your HubSpot account.
+At minimum include either email or firstname and lastname.
+
+Example Response  -  201 Created
+
+{
+  "id": "101",
+  "properties": {
+    "createdate": "2024-01-20T14:00:00.000Z",
+    "email": "jane.doe@example.com",
+    "firstname": "Jane",
+    "hs_object_id": "101",
+    "lastmodifieddate": "2024-01-20T14:00:00.000Z",
+    "lastname": "Doe"
+  },
+  "createdAt": "2024-01-20T14:00:00.000Z",
+  "updatedAt": "2024-01-20T14:00:00.000Z",
+  "archived": false
+}
+
+Update a Contact
+
+PATCH https://api.hubspot.com/crm/v3/objects/contacts/{contactId}
+
+Updates an existing contact. Only include the properties you want to change.
+
+Request Body
+
+{
+  "properties": {
+    "phone": "+1-555-111-2222",
+    "jobtitle": "Senior Engineer"
+  }
+}
+
+Delete a Contact
+
+DELETE https://api.hubspot.com/crm/v3/objects/contacts/{contactId}
+
+Moves the contact to the recycling bin. Returns 204 No Content on success.
+
+Search Contacts
+
+POST https://api.hubspot.com/crm/v3/objects/contacts/search
+
+Search for contacts using filters on any property value.
+
+Request Body
+
+{
+  "filterGroups": [
+    {
+      "filters": [
+        {
+          "propertyName": "email",
+          "operator": "EQ",
+          "value": "jane.doe@example.com"
+        }
+      ]
+    }
+  ],
+  "properties": ["firstname", "lastname", "email", "phone", "company"],
+  "limit": 10
+}
+
+Error Responses
+
+All error responses follow a consistent format.
+
+{
+  "status": "error",
+  "message": "A description of what went wrong",
+  "correlationId": "a unique ID for this error instance",
+  "category": "VALIDATION_ERROR"
+}
+
+HTTP Status Codes
+
+200 OK  -  Request succeeded. Response body contains the requested data.
+201 Created  -  Contact was successfully created. Response body contains the new contact.
+204 No Content  -  Request succeeded but there is no response body (used for DELETE).
+400 Bad Request  -  The request was malformed. Check the message field for details.
+401 Unauthorized  -  The access token is missing, expired, or invalid. Check the Authorization header.
+403 Forbidden  -  The access token does not have the required scopes for this operation.
+404 Not Found  -  The contact with the given ID does not exist or has been deleted.
+409 Conflict  -  A contact with the given email address already exists.
+429 Too Many Requests  -  You have exceeded the API rate limit. Retry after the Retry-After interval.
+500 Internal Server Error  -  An unexpected error occurred on HubSpot's servers.
+
+Rate Limits
+
+The HubSpot API enforces rate limits based on your account tier.
+Free and Starter accounts: 100 requests per 10 seconds.
+Professional and Enterprise accounts: 150 requests per 10 seconds.
+When rate limited, the response includes a Retry-After header.
+The X-HubSpot-RateLimit-Remaining header shows how many requests you have left.
+
+Pagination
+
+The API uses cursor-based pagination.
+The response includes a paging.next.after value when more results exist.
+Pass this value as the after query parameter to get the next page.
+Continue until the response contains no paging.next field  -  that is the last page.

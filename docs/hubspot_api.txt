@@ -1,0 +1,163 @@
+HubSpot CRM API — Contacts
+===========================
+
+Overview
+--------
+The HubSpot Contacts API allows you to manage contact records in your HubSpot CRM.
+Base URL: https://api.hubapi.com
+
+Authentication
+--------------
+All requests require a Bearer token in the Authorization header.
+
+    Authorization: Bearer YOUR_HUBSPOT_API_KEY
+
+Rate Limits: 100 requests per 10 seconds per API key.
+
+
+Endpoint: List Contacts
+------------------------
+GET /crm/v3/objects/contacts
+
+Returns a paginated list of contacts.
+
+Query Parameters:
+  - limit        (integer, optional) — Max results per page. Default 10, max 100.
+  - after        (string, optional)  — Cursor for next page of results.
+  - properties   (string, optional)  — Comma-separated list of properties to return.
+  - sorts        (string, optional)  — Sort field and direction, e.g. "createdate" or "-createdate".
+
+Example Request:
+    GET https://api.hubapi.com/crm/v3/objects/contacts?limit=1&properties=firstname,lastname,email,phone,company&sorts=-createdate
+    Authorization: Bearer YOUR_HUBSPOT_API_KEY
+
+Example Response:
+{
+  "results": [
+    {
+      "id": "501",
+      "properties": {
+        "firstname": "Jane",
+        "lastname": "Doe",
+        "email": "jane.doe@example.com",
+        "phone": "+1-555-0123",
+        "company": "Acme Corp",
+        "createdate": "2025-04-28T10:30:00.000Z",
+        "lastmodifieddate": "2025-04-28T12:00:00.000Z",
+        "hs_object_id": "501"
+      },
+      "createdAt": "2025-04-28T10:30:00.000Z",
+      "updatedAt": "2025-04-28T12:00:00.000Z",
+      "archived": false
+    }
+  ],
+  "paging": {
+    "next": {
+      "after": "502",
+      "link": "https://api.hubapi.com/crm/v3/objects/contacts?after=502"
+    }
+  }
+}
+
+
+Endpoint: Get a Single Contact
+-------------------------------
+GET /crm/v3/objects/contacts/{contactId}
+
+Path Parameters:
+  - contactId    (string, required)  — The ID of the contact.
+
+Query Parameters:
+  - properties   (string, optional)  — Comma-separated list of properties to return.
+
+Example Request:
+    GET https://api.hubapi.com/crm/v3/objects/contacts/501?properties=firstname,lastname,email,phone,company
+    Authorization: Bearer YOUR_HUBSPOT_API_KEY
+
+
+Endpoint: Create a Contact
+---------------------------
+POST /crm/v3/objects/contacts
+
+Request Body (JSON):
+{
+  "properties": {
+    "firstname": "John",
+    "lastname": "Smith",
+    "email": "john.smith@example.com",
+    "phone": "+1-555-9876",
+    "company": "Widget Inc"
+  }
+}
+
+Response: Returns the created contact object with an assigned "id".
+
+
+Endpoint: Search Contacts
+--------------------------
+POST /crm/v3/objects/contacts/search
+
+Allows filtering and sorting contacts using a structured query.
+
+Request Body (JSON):
+{
+  "filterGroups": [
+    {
+      "filters": [
+        {
+          "propertyName": "createdate",
+          "operator": "GTE",
+          "value": "2025-04-01T00:00:00Z"
+        }
+      ]
+    }
+  ],
+  "sorts": [
+    {
+      "propertyName": "createdate",
+      "direction": "DESCENDING"
+    }
+  ],
+  "properties": ["firstname", "lastname", "email", "phone", "company"],
+  "limit": 1
+}
+
+
+Contact Properties Reference
+-----------------------------
+The following are standard contact properties available in HubSpot CRM:
+
+  - firstname            (string)  — Contact's first name
+  - lastname             (string)  — Contact's last name
+  - email                (string)  — Contact's primary email address
+  - phone                (string)  — Contact's phone number
+  - company              (string)  — Associated company name
+  - jobtitle             (string)  — Contact's job title
+  - lifecyclestage       (string)  — Lifecycle stage: subscriber, lead, opportunity, customer
+  - hs_lead_status       (string)  — Lead status: NEW, OPEN, IN_PROGRESS, CONNECTED
+  - createdate           (datetime)— Date the contact was created
+  - lastmodifieddate     (datetime)— Date the contact was last updated
+  - hs_object_id         (string)  — Unique HubSpot object ID
+  - associatedcompanyid  (string)  — ID of associated company record
+  - num_associated_deals (integer) — Number of deals associated with contact
+  - city                 (string)  — Contact's city
+  - state                (string)  — Contact's state/region
+  - country              (string)  — Contact's country
+  - website              (string)  — Contact's website URL
+  - hs_email_domain      (string)  — Domain extracted from email address
+
+
+Error Responses
+---------------
+  - 401 Unauthorized      — Invalid or missing API key
+  - 404 Not Found         — Contact ID does not exist
+  - 429 Too Many Requests — Rate limit exceeded. Retry after the time specified in Retry-After header.
+  - 500 Internal Error    — Server error, retry with exponential backoff
+
+Error Response Format:
+{
+  "status": "error",
+  "message": "The API key provided is invalid.",
+  "correlationId": "abc-123-def",
+  "category": "INVALID_AUTHENTICATION"
+}
