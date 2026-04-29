@@ -1,0 +1,7 @@
+langgraph
+langchain
+langchain-core
+streamlit
+chromadb
+python-dotenv
+requests

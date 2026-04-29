@@ -1,0 +1,180 @@
+Discord API — Webhooks
+======================
+
+Overview
+--------
+Discord Webhooks allow you to send messages to a Discord channel without a bot user.
+You simply POST a JSON payload to a webhook URL and the message appears in the channel.
+
+No authentication header is needed — the secret is embedded in the webhook URL itself.
+
+Webhook URL Format:
+    https://discord.com/api/webhooks/{webhook.id}/{webhook.token}
+
+
+Endpoint: Execute Webhook
+--------------------------
+POST https://discord.com/api/webhooks/{webhook.id}/{webhook.token}
+
+Sends a message to the channel associated with the webhook.
+
+Headers:
+    Content-Type: application/json
+
+Query Parameters:
+  - wait   (boolean, optional) — If true, waits for server confirmation and returns the message object. Default false.
+  - thread_id (snowflake, optional) — Send the message to a specific thread.
+
+Request Body (JSON):
+  - content     (string, optional)  — Simple text message content. Max 2000 characters.
+  - username    (string, optional)  — Override the webhook's default username.
+  - avatar_url  (string, optional)  — Override the webhook's default avatar.
+  - tts         (boolean, optional) — Whether this is a text-to-speech message. Default false.
+  - embeds      (array, optional)   — Array of embed objects. Max 10 embeds per message.
+
+Note: At least one of "content" or "embeds" must be provided.
+
+
+Embed Object Structure
+----------------------
+Each embed in the "embeds" array can contain:
+
+  - title        (string, optional)  — Title of the embed. Max 256 characters.
+  - description  (string, optional)  — Description text. Max 4096 characters.
+  - url          (string, optional)  — URL the title links to.
+  - color        (integer, optional) — Color code in decimal (e.g., 5814783 for blue, 16744576 for orange).
+  - timestamp    (string, optional)  — ISO 8601 timestamp shown in embed footer.
+  - footer       (object, optional)  — Footer object with "text" and optional "icon_url".
+  - thumbnail    (object, optional)  — Thumbnail object with "url" (image URL).
+  - image        (object, optional)  — Image object with "url" (image URL).
+  - author       (object, optional)  — Author object with "name", "url", "icon_url".
+  - fields       (array, optional)   — Array of field objects for structured data.
+
+Embed Field Object:
+  - name     (string, required)  — Field name/label. Max 256 characters.
+  - value    (string, required)  — Field value. Max 1024 characters.
+  - inline   (boolean, optional) — Whether the field is displayed inline. Default false.
+
+
+Example: Simple Text Message
+-----------------------------
+POST https://discord.com/api/webhooks/1234567890/abcdeftoken
+
+{
+  "content": "Hello from ALI! A new lead has arrived."
+}
+
+Response: 204 No Content (if wait=false)
+
+
+Example: Rich Embed Message
+-----------------------------
+POST https://discord.com/api/webhooks/1234567890/abcdeftoken
+
+{
+  "username": "ALI Bot",
+  "embeds": [
+    {
+      "title": "🆕 New HubSpot Lead",
+      "description": "A new contact was just created in HubSpot CRM.",
+      "color": 5814783,
+      "timestamp": "2025-04-28T10:30:00.000Z",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "Jane Doe",
+          "inline": true
+        },
+        {
+          "name": "Email",
+          "value": "jane.doe@example.com",
+          "inline": true
+        },
+        {
+          "name": "Phone",
+          "value": "+1-555-0123",
+          "inline": true
+        },
+        {
+          "name": "Company",
+          "value": "Acme Corp",
+          "inline": true
+        },
+        {
+          "name": "Lifecycle Stage",
+          "value": "Lead",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "ALI — Autonomous Integration Layer"
+      }
+    }
+  ]
+}
+
+Response (with ?wait=true):
+{
+  "id": "9876543210",
+  "type": 0,
+  "content": "",
+  "channel_id": "111222333",
+  "webhook_id": "1234567890",
+  "embeds": [ ... ],
+  "timestamp": "2025-04-28T10:30:05.000Z"
+}
+
+
+Endpoint: Edit Webhook Message
+-------------------------------
+PATCH https://discord.com/api/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}
+
+Request Body: Same fields as Execute Webhook (content, embeds, etc.)
+Use this to update a previously sent webhook message.
+
+
+Endpoint: Delete Webhook Message
+---------------------------------
+DELETE https://discord.com/api/webhooks/{webhook.id}/{webhook.token}/messages/{message.id}
+
+Deletes a previously sent webhook message. Returns 204 No Content on success.
+
+
+Rate Limits
+-----------
+  - 5 requests per 2 seconds per webhook.
+  - If rate limited, the response returns 429 with a "retry_after" field (in seconds).
+
+Rate Limit Response:
+{
+  "message": "You are being rate limited.",
+  "retry_after": 0.5,
+  "global": false
+}
+
+
+Error Responses
+---------------
+  - 400 Bad Request   — Invalid payload (missing content/embeds, malformed JSON).
+  - 401 Unauthorized  — Invalid webhook token.
+  - 404 Not Found     — Webhook has been deleted.
+  - 429 Rate Limited  — Too many requests, retry after specified delay.
+
+Error Response Format:
+{
+  "code": 50006,
+  "message": "Cannot send an empty message"
+}
+
+
+Webhook Payload Size Limits
+----------------------------
+  - Total payload: 8 MB max
+  - content: 2000 characters max
+  - embeds: Max 10 per message
+  - embed title: 256 characters max
+  - embed description: 4096 characters max
+  - embed fields: Max 25 per embed
+  - embed field name: 256 characters max
+  - embed field value: 1024 characters max
+  - Total embed characters: 6000 max across all embeds
